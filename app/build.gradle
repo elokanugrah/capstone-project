@@ -61,9 +61,15 @@ dependencies {
     //UI
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"//other
+    implementation 'com.airbnb.android:lottie:3.5.0'
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
 
     //Room
+    implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
@@ -78,6 +84,7 @@ dependencies {
     //Architecture component
     implementation "androidx.lifecycle:lifecycle-extensions:$arch_lifecycle_version"
     annotationProcessor "androidx.lifecycle:lifecycle-common-java8:$arch_lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_lifecycle_version"
 
     //Navigation components
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
