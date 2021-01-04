@@ -4,18 +4,18 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.capstoneproject.core.domain.model.MovieTv
-import elok.dicoding.made.capstoneproject.core.utils.ext.gone
-import elok.dicoding.made.capstoneproject.core.utils.ext.observe
-import elok.dicoding.made.capstoneproject.core.utils.ext.shareMovieTv
-import elok.dicoding.made.capstoneproject.core.utils.ext.visible
 import elok.dicoding.made.capstoneproject.databinding.FragmentFavoriteTvBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.capstoneproject.ui.base.BaseFragment
 import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
+import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.ui.base.BaseFragment
+import elok.dicoding.made.core.utils.ext.gone
+import elok.dicoding.made.core.utils.ext.observe
+import elok.dicoding.made.core.utils.ext.shareMovieTv
+import elok.dicoding.made.core.utils.ext.visible
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -67,6 +67,6 @@ class FavoriteTvFragment : BaseFragment<FragmentFavoriteTvBinding>({ FragmentFav
     @ExperimentalCoroutinesApi
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        appComponent.inject(this)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 }

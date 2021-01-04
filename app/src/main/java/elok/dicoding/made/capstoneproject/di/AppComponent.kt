@@ -1,7 +1,6 @@
 package elok.dicoding.made.capstoneproject.di
 
 import dagger.Component
-import elok.dicoding.made.capstoneproject.core.di.CoreComponent
 import elok.dicoding.made.capstoneproject.ui.components.MainActivity
 import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
 import elok.dicoding.made.capstoneproject.ui.components.favorite.FavoriteFragment
@@ -9,6 +8,7 @@ import elok.dicoding.made.capstoneproject.ui.components.favorite.FavoriteMovieFr
 import elok.dicoding.made.capstoneproject.ui.components.favorite.FavoriteTvFragment
 import elok.dicoding.made.capstoneproject.ui.components.movie.MovieFragment
 import elok.dicoding.made.capstoneproject.ui.components.tv.TvFragment
+import elok.dicoding.made.core.di.CoreComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi

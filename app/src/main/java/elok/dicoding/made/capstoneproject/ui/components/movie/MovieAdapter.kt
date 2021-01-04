@@ -4,10 +4,10 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.capstoneproject.core.domain.model.MovieTv
-import elok.dicoding.made.capstoneproject.core.utils.ext.observe
-import elok.dicoding.made.capstoneproject.databinding.ItemMovieTvBinding
-import elok.dicoding.made.capstoneproject.ui.base.BaseAdapter
+import elok.dicoding.made.core.databinding.ItemMovieTvBinding
+import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.ui.base.BaseAdapter
+import elok.dicoding.made.core.utils.ext.observe
 
 class  MovieAdapter : BaseAdapter<MovieTv, ItemMovieTvBinding>(DIFF_CALLBACK) {
 

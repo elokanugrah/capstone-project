@@ -8,9 +8,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.FragmentFavoriteBinding
-import elok.dicoding.made.capstoneproject.ui.base.BaseFragment
+import elok.dicoding.made.core.ui.base.BaseFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.math.abs
 
@@ -63,6 +64,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>({ FragmentFavorit
     @ExperimentalCoroutinesApi
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        appComponent.inject(this)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 }

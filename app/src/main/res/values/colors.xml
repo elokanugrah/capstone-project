@@ -7,6 +7,5 @@
     <color name="dark">#120136</color>
     <color name="light">#FFFFFF</color>
 
-    <color name="color_tertiary">#EFEFEF</color>
     <color name="text_on_light">#000A19</color>
 </resources>

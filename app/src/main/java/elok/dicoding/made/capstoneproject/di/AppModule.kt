@@ -2,8 +2,8 @@ package elok.dicoding.made.capstoneproject.di
 
 import dagger.Binds
 import dagger.Module
-import elok.dicoding.made.capstoneproject.core.domain.usecase.MovieTvInteractor
-import elok.dicoding.made.capstoneproject.core.domain.usecase.MovieTvUseCase
+import elok.dicoding.made.core.domain.usecase.MovieTvInteractor
+import elok.dicoding.made.core.domain.usecase.MovieTvUseCase
 
 @Module
 abstract class AppModule {

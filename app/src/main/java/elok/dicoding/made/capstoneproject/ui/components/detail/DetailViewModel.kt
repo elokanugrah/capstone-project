@@ -1,8 +1,8 @@
 package elok.dicoding.made.capstoneproject.ui.components.detail
 
 import androidx.lifecycle.*
-import elok.dicoding.made.capstoneproject.core.domain.model.MovieTv
-import elok.dicoding.made.capstoneproject.core.domain.usecase.MovieTvUseCase
+import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.domain.usecase.MovieTvUseCase
 import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(private val useCase: MovieTvUseCase?) : ViewModel() {

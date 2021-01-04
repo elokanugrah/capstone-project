@@ -4,14 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
+import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.capstoneproject.core.data.Resource
-import elok.dicoding.made.capstoneproject.core.domain.model.MovieTv
-import elok.dicoding.made.capstoneproject.core.utils.ext.*
 import elok.dicoding.made.capstoneproject.databinding.FragmentMovieBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.capstoneproject.ui.base.BaseFragment
 import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
+import elok.dicoding.made.core.data.Resource
+import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.ui.base.BaseFragment
+import elok.dicoding.made.core.utils.ext.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -73,6 +74,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
     @ExperimentalCoroutinesApi
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        appComponent.inject(this)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 }
