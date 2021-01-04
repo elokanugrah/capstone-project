@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_tv" />
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="elok.dicoding.made.capstoneproject.ui.components.favorite.FavoriteFragment"
+        android:name="elok.dicoding.made.favorites.ui.FavoriteFragment"
         android:label="FavoriteFragment"
         tools:layout="@layout/fragment_favorite" />
 </navigation>

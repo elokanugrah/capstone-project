@@ -215,7 +215,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_gravity="bottom|end"
-            app:tint="?colorOnPrimary"
+            app:tint="?colorOnSecondary"
             app:backgroundTint="?colorAccent"
             app:fabSize="auto"
             app:showMotionSpec="@anim/nav_default_enter_anim"
