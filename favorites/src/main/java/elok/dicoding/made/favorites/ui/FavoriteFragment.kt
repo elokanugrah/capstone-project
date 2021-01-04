@@ -1,4 +1,4 @@
-package elok.dicoding.made.capstoneproject.ui.components.favorite
+package elok.dicoding.made.favorites.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -8,14 +8,20 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.capstoneproject.databinding.FragmentFavoriteBinding
+import elok.dicoding.made.core.di.CoreComponent
+import elok.dicoding.made.core.di.DaggerCoreComponent
 import elok.dicoding.made.core.ui.base.BaseFragment
+import elok.dicoding.made.favorites.databinding.FragmentFavoriteBinding
+import elok.dicoding.made.favorites.di.DaggerFavoriteComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.math.abs
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>({ FragmentFavoriteBinding.inflate(it) }) {
+
+    private val coreComponent: CoreComponent by lazy {
+        DaggerCoreComponent.factory().create(requireActivity())
+    }
 
     override fun FragmentFavoriteBinding.onViewCreated(savedInstanceState: Bundle?) {
         binding?.appbar?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -64,6 +70,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>({ FragmentFavorit
     @ExperimentalCoroutinesApi
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
+        DaggerFavoriteComponent.builder().coreComponent(coreComponent).build().inject(this)
     }
 }

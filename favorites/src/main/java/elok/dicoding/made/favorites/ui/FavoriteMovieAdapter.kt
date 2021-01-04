@@ -1,4 +1,4 @@
-package elok.dicoding.made.capstoneproject.ui.components.favorite
+package elok.dicoding.made.favorites.ui
 
 import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.LifecycleOwner

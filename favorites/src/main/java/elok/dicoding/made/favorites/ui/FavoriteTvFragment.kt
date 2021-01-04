@@ -1,21 +1,23 @@
-package elok.dicoding.made.capstoneproject.ui.components.favorite
+package elok.dicoding.made.favorites.ui
 
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.paging.PagedList
 import com.google.android.material.snackbar.Snackbar
-import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.capstoneproject.databinding.FragmentFavoriteTvBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
 import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
+import elok.dicoding.made.core.di.CoreComponent
+import elok.dicoding.made.core.di.DaggerCoreComponent
 import elok.dicoding.made.core.domain.model.MovieTv
 import elok.dicoding.made.core.ui.base.BaseFragment
 import elok.dicoding.made.core.utils.ext.gone
 import elok.dicoding.made.core.utils.ext.observe
 import elok.dicoding.made.core.utils.ext.shareMovieTv
 import elok.dicoding.made.core.utils.ext.visible
+import elok.dicoding.made.favorites.databinding.FragmentFavoriteTvBinding
+import elok.dicoding.made.favorites.di.DaggerFavoriteComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -24,6 +26,9 @@ class FavoriteTvFragment : BaseFragment<FragmentFavoriteTvBinding>({ FragmentFav
     @Inject
     lateinit var factory: ViewModelFactory
 
+    private val coreComponent: CoreComponent by lazy {
+        DaggerCoreComponent.factory().create(requireActivity())
+    }
     private val viewModel: FavoriteViewModel by viewModels { factory }
     private val adapter by lazy { FavoriteMovieAdapter() }
 
@@ -67,6 +72,6 @@ class FavoriteTvFragment : BaseFragment<FragmentFavoriteTvBinding>({ FragmentFav
     @ExperimentalCoroutinesApi
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
+        DaggerFavoriteComponent.builder().coreComponent(coreComponent).build().inject(this)
     }
 }

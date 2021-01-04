@@ -1,9 +1,8 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.dynamic-feature'
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id 'androidx.navigation.safeargs.kotlin'
 }
 apply from: '../shared_dependencies.gradle'
 
@@ -12,12 +11,11 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "elok.dicoding.made.capstoneproject"
+        applicationId "elok.dicoding.made.favorites"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,12 +29,6 @@ android {
             applicationIdSuffix ".debug"
             debuggable true
         }
-
-    }
-    buildTypes.each {
-        it.buildConfigField 'String', 'API_KEY', THE_MOVIE_DB_TOKEN
-        it.buildConfigField 'String', 'BASE_URL', BASE_URL
-        it.buildConfigField 'String', 'IMG_URL', IMG_URL
     }
     buildFeatures{
         dataBinding true
@@ -49,11 +41,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    dynamicFeatures = [':favorites']
 }
 
 dependencies {
-
     implementation project(":core")
+    implementation project(":app")
     implementation fileTree(dir: "libs", include: ["*.jar"])
 }
