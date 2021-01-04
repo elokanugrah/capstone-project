@@ -11,6 +11,8 @@ interface IMovieTvRepository {
     fun getTvShows(): Flow<Resource<List<MovieTv>>>
     fun getFavoriteMovies(): LiveData<PagedList<MovieTv>>
     fun getFavoriteTvShows(): LiveData<PagedList<MovieTv>>
+    fun searchMovies(query: String): Flow<Resource<List<MovieTv>>>
+    fun searchTvShows(query: String): Flow<Resource<List<MovieTv>>>
     fun setFavoriteMovieTv(movieTv: MovieTv, saved: Boolean)
     fun isFavorite(movieTv: MovieTv): Flow<Boolean>
 }

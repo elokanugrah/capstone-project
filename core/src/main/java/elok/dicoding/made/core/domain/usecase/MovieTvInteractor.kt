@@ -15,11 +15,20 @@ class MovieTvInteractor @Inject constructor(private val tourismRepository: IMovi
 
     override fun getTvShows(): Flow<Resource<List<MovieTv>>> = tourismRepository.getTvShows()
 
-    override fun getFavoriteMovies(): LiveData<PagedList<MovieTv>> = tourismRepository.getFavoriteMovies()
+    override fun getFavoriteMovies(): LiveData<PagedList<MovieTv>> =
+        tourismRepository.getFavoriteMovies()
 
-    override fun getFavoriteTvShows(): LiveData<PagedList<MovieTv>> = tourismRepository.getFavoriteTvShows()
+    override fun getFavoriteTvShows(): LiveData<PagedList<MovieTv>> =
+        tourismRepository.getFavoriteTvShows()
 
-    override fun setFavoriteMovieTv(movieTv: MovieTv, saved: Boolean) = tourismRepository.setFavoriteMovieTv(movieTv, saved)
+    override fun searchMovies(query: String): Flow<Resource<List<MovieTv>>> =
+        tourismRepository.searchMovies(query)
+
+    override fun searchTvShows(query: String): Flow<Resource<List<MovieTv>>> =
+        tourismRepository.searchTvShows(query)
+
+    override fun setFavoriteMovieTv(movieTv: MovieTv, saved: Boolean) =
+        tourismRepository.setFavoriteMovieTv(movieTv, saved)
 
     override fun isFavorite(movieTv: MovieTv) = tourismRepository.isFavorite(movieTv)
 }

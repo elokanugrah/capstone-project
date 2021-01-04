@@ -16,8 +16,9 @@
         <item name="android:windowBackground">?colorOnPrimary</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
         <item name="android:textColor">@color/light</item>
+        <item name="android:editTextColor">@color/dark</item>
         <item name="android:textColorPrimary">@color/light</item>
-        <item name="android:textColorSecondary">@color/light</item>
+        <item name="android:textColorSecondary">@color/dark</item>
         <item name="actionMenuTextColor">@color/light</item>
     </style>
 </resources>

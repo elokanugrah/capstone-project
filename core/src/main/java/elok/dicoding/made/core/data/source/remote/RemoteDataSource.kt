@@ -36,12 +36,46 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
             try {
                 val response = apiService.getTvShows()
                 val dataArray = response.results
-                if (dataArray?.isNotEmpty() ?: return@flow){
+                if (dataArray?.isNotEmpty() ?: return@flow) {
                     emit(ApiResponse.Success(response.results))
                 } else {
                     emit(ApiResponse.Empty)
                 }
-            } catch (e : Exception){
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSourceTvShows", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun searchMovies(query: String): Flow<ApiResponse<List<MovieTvResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getSearchMovies(query = query)
+                val dataArray = response.results
+                if (dataArray?.isNotEmpty() ?: return@flow) {
+                    emit(ApiResponse.Success(response.results))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSourceMovies", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun searchTvShows(query: String): Flow<ApiResponse<List<MovieTvResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getSearchTvShows(query = query)
+                val dataArray = response.results
+                if (dataArray?.isNotEmpty() ?: return@flow) {
+                    emit(ApiResponse.Success(response.results))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSourceTvShows", e.toString())
             }

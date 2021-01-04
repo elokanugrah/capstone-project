@@ -16,4 +16,15 @@ interface ApiService {
         @Query("api_key") apiKey: String? = BuildConfig.API_KEY
     ): ListMovieTvResponse
 
+    @GET("search/movie")
+    suspend fun getSearchMovies(
+        @Query("api_key") apiKey: String? = BuildConfig.API_KEY,
+        @Query("query") query: String?
+    ): ListMovieTvResponse
+
+    @GET("search/tv")
+    suspend fun getSearchTvShows(
+        @Query("api_key") apiKey: String? = BuildConfig.API_KEY,
+        @Query("query") query: String?
+    ): ListMovieTvResponse
 }

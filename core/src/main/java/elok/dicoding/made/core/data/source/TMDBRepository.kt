@@ -14,6 +14,7 @@ import elok.dicoding.made.core.domain.repository.IMovieTvRepository
 import elok.dicoding.made.core.utils.AppExecutors
 import elok.dicoding.made.core.utils.DataMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -90,6 +91,46 @@ class TMDBRepository @Inject constructor(
             .setPageSize(4)
             .build()
         return LivePagedListBuilder(favTvShows, config).build()
+    }
+
+    override fun searchMovies(query: String): Flow<Resource<List<MovieTv>>> = flow {
+        emit(Resource.Loading())
+        when (val apiResponse = remoteDataSource.searchMovies(query).first()) {
+            is ApiResponse.Success -> {
+                val response = DataMapper.mapResponseToEntities(apiResponse.data)
+                emit(Resource.Success(DataMapper.mapEntitiesToDomain(response)))
+            }
+            is ApiResponse.Empty -> {
+                emit(Resource.Error<List<MovieTv>>("No result found, please try different keyword"))
+            }
+            is ApiResponse.Error -> {
+                emit(
+                    Resource.Error<List<MovieTv>>(
+                        apiResponse.errorMessage
+                    )
+                )
+            }
+        }
+    }
+
+    override fun searchTvShows(query: String): Flow<Resource<List<MovieTv>>> = flow {
+        emit(Resource.Loading())
+        when (val apiResponse = remoteDataSource.searchTvShows(query).first()) {
+            is ApiResponse.Success -> {
+                val response = DataMapper.mapResponseToEntities(apiResponse.data)
+                emit(Resource.Success(DataMapper.mapEntitiesToDomain(response)))
+            }
+            is ApiResponse.Empty -> {
+                emit(Resource.Error<List<MovieTv>>("No result found, please try different keyword"))
+            }
+            is ApiResponse.Error -> {
+                emit(
+                    Resource.Error<List<MovieTv>>(
+                        apiResponse.errorMessage
+                    )
+                )
+            }
+        }
     }
 
     override fun setFavoriteMovieTv(movieTv: MovieTv, saved: Boolean) {

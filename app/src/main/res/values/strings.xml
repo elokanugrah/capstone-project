@@ -15,4 +15,5 @@
     <string name="release">Release</string>
     <string name="overview">Overview</string>
     <string name="title_favorites">Favorites</string>
+    <string name="search">Search</string>
 </resources>

@@ -11,13 +11,13 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="128dp"
+            android:layout_height="wrap_content"
             android:background="?colorOnPrimary"
             android:stateListAnimator="@animator/animator_appbar_elevation">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="128dp"
                 android:background="?colorOnPrimary"
                 app:collapsedTitleGravity="center_horizontal"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
@@ -33,6 +33,17 @@
                     app:layout_collapseMode="pin"
                     app:title="@string/tv_show" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:background="@drawable/bg_rounded_filled_with_stroke"
+                android:gravity="center"
+                app:iconifiedByDefault="false"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="@string/search" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -40,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingTop="16dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="16dp"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -55,12 +67,20 @@
             android:layout_gravity="center"
             tools:visibility="gone" />
 
-        <include
-            android:id="@+id/error"
-            layout="@layout/_partial_error"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/errorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:visibility="gone"/>
+            android:fillViewport="true"
+            android:visibility="gone"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <include
+                android:id="@+id/error"
+                layout="@layout/_partial_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center" />
+        </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

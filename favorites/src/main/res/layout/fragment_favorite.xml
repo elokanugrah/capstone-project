@@ -42,8 +42,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 app:tabIndicatorColor="@color/yellow_light"
-                app:tabSelectedTextColor="@color/yellow_light"
-                app:tabTextColor="@color/color_tertiary" />
+                app:tabTextColor="@android:color/white" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
