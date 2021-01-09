@@ -4,6 +4,7 @@ import android.util.Log
 import elok.dicoding.made.core.data.source.remote.network.ApiResponse
 import elok.dicoding.made.core.data.source.remote.network.ApiService
 import elok.dicoding.made.core.data.source.remote.response.MovieTvResponse
+import elok.dicoding.made.core.utils.EspressoIdlingResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
     suspend fun getMovies(): Flow<ApiResponse<List<MovieTvResponse>>> {
+        EspressoIdlingResource.increment()
         return flow {
             try {
                 val response = apiService.getMovies()
@@ -24,14 +26,17 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 } else {
                     emit(ApiResponse.Empty)
                 }
+                EspressoIdlingResource.decrement()
             } catch (e : Exception){
                 emit(ApiResponse.Error(e.toString()))
+                EspressoIdlingResource.decrement()
                 Log.e("RemoteDataSourceMovies", e.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
 
     suspend fun getTvShows(): Flow<ApiResponse<List<MovieTvResponse>>> {
+        EspressoIdlingResource.increment()
         return flow {
             try {
                 val response = apiService.getTvShows()
@@ -41,14 +46,17 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 } else {
                     emit(ApiResponse.Empty)
                 }
+                EspressoIdlingResource.decrement()
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
+                EspressoIdlingResource.decrement()
                 Log.e("RemoteDataSourceTvShows", e.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
 
     suspend fun searchMovies(query: String): Flow<ApiResponse<List<MovieTvResponse>>> {
+        EspressoIdlingResource.increment()
         return flow {
             try {
                 val response = apiService.getSearchMovies(query = query)
@@ -58,14 +66,17 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 } else {
                     emit(ApiResponse.Empty)
                 }
+                EspressoIdlingResource.decrement()
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
+                EspressoIdlingResource.decrement()
                 Log.e("RemoteDataSourceMovies", e.toString())
             }
         }.flowOn(Dispatchers.IO)
     }
 
     suspend fun searchTvShows(query: String): Flow<ApiResponse<List<MovieTvResponse>>> {
+        EspressoIdlingResource.increment()
         return flow {
             try {
                 val response = apiService.getSearchTvShows(query = query)
@@ -75,8 +86,10 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 } else {
                     emit(ApiResponse.Empty)
                 }
+                EspressoIdlingResource.decrement()
             } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
+                EspressoIdlingResource.decrement()
                 Log.e("RemoteDataSourceTvShows", e.toString())
             }
         }.flowOn(Dispatchers.IO)
