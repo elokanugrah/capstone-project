@@ -1,53 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorOnPrimary"
-        android:stateListAnimator="@animator/animator_appbar_elevation">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="128dp"
-            android:background="?colorOnPrimary"
-            app:collapsedTitleGravity="center_horizontal"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:titleEnabled="true"
-            app:toolbarId="@+id/toolbar">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:contentInsetEnd="16dp"
-                app:contentInsetStart="16dp"
-                app:layout_collapseMode="pin"
-                app:title="@string/favorite" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="?colorOnPrimary"
-            app:tabIndicatorColor="@color/yellow_light"
-            app:tabTextColor="@android:color/white" />
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:animateLayoutChanges="true">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorOnPrimary"
+            android:stateListAnimator="@animator/animator_appbar_elevation">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:background="?colorOnPrimary"
+                app:collapsedTitleGravity="center_horizontal"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:titleEnabled="true"
+                app:toolbarId="@+id/toolbar">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:contentInsetEnd="16dp"
+                    app:contentInsetStart="16dp"
+                    app:layout_collapseMode="pin"
+                    app:title="@string/favorite" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="?colorOnPrimary"
+                app:tabIndicatorColor="@color/yellow_light"
+                app:tabTextColor="@android:color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
