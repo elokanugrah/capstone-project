@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="elok.dicoding.made.capstoneproject.core.domain.model.MovieTv" />
+            type="elok.dicoding.made.core.domain.model.MovieTv" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -73,8 +73,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="100dp"
                 android:orientation="vertical">
 
@@ -215,7 +214,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_gravity="bottom|end"
-            app:tint="?colorOnPrimary"
+            app:tint="?colorOnSecondary"
             app:backgroundTint="?colorAccent"
             app:fabSize="auto"
             app:showMotionSpec="@anim/nav_default_enter_anim"

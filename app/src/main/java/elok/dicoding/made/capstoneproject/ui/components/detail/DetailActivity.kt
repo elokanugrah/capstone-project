@@ -5,12 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.capstoneproject.core.domain.model.MovieTv
-import elok.dicoding.made.capstoneproject.core.utils.ext.observe
+import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.databinding.ActivityDetailBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.capstoneproject.ui.base.BaseActivity
+import elok.dicoding.made.core.R
+import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.ui.base.BaseActivity
+import elok.dicoding.made.core.utils.ext.observe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
@@ -23,9 +24,12 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
 
     @ExperimentalCoroutinesApi
     override fun ActivityDetailBinding.onCreate(savedInstanceState: Bundle?) {
-        appComponent.inject(this@DetailActivity)
+        (application as MyApplication).appComponent.inject(this@DetailActivity)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowTitleEnabled(false)
+        }
 
         val movieTv = intent.getParcelableExtra<MovieTv>(EXTRA_MOVIE_TV)
         movieTv?.let {

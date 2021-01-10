@@ -2,17 +2,22 @@ package elok.dicoding.made.capstoneproject.ui.components.tv
 
 import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.capstoneproject.core.data.Resource
-import elok.dicoding.made.capstoneproject.core.domain.model.MovieTv
-import elok.dicoding.made.capstoneproject.core.utils.ext.*
 import elok.dicoding.made.capstoneproject.databinding.FragmentTvBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.capstoneproject.ui.base.BaseFragment
 import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
+import elok.dicoding.made.core.data.Resource
+import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.ui.base.BaseFragment
+import elok.dicoding.made.core.utils.ext.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(it) }) {
@@ -24,14 +29,32 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
     private val adapter by lazy { TvAdapter() }
 
     override fun FragmentTvBinding.onViewCreated(savedInstanceState: Bundle?) {
-        binding?.rvTv?.adapter = this@TvFragment.adapter
-        binding?.rvTv?.hasFixedSize()
-        binding?.rvTv?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                binding?.appbar?.isSelected = recyclerView.canScrollVertically(-1)
-            }
-        })
+        binding?.apply {
+            rvTv.adapter = this@TvFragment.adapter
+            rvTv.hasFixedSize()
+            rvTv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    appbar.isSelected = recyclerView.canScrollVertically(-1)
+                }
+            })
+            search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    lifecycleScope.launch {
+                        viewModel.queryChannel.send(p0.toString())
+                    }
+                    return true
+                }
+
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    lifecycleScope.launch {
+                        viewModel.queryChannel.send(p0.toString())
+                    }
+                    return true
+                }
+            })
+        }
+
         adapter.lifecycleOwner = this@TvFragment
         adapter.viewModel = this@TvFragment.viewModel
         adapter.listener = { _, _, item ->
@@ -45,20 +68,27 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
 
     override fun observeViewModel() {
         observe(viewModel.tvShows, ::handleTvShows)
+        observe(viewModel.search) { searchResult ->
+            observe(searchResult?.asLiveData(), ::handleSearch)
+        }
     }
 
     private fun handleTvShows(tvShows: Resource<List<MovieTv>>) {
         binding?.apply {
             when (tvShows) {
-                is Resource.Loading -> loading.root.visible()
+                is Resource.Loading -> {
+                    errorLayout.gone()
+                    loading.root.visible()
+                }
                 is Resource.Success -> {
                     loading.root.gone()
+                    errorLayout.gone()
                     adapter.submitList(tvShows.data)
                 }
                 is Resource.Error -> {
                     loading.root.gone()
                     if (tvShows.data.isNullOrEmpty()) {
-                        error.root.visible()
+                        errorLayout.visible()
                         error.message.text =
                             tvShows.message ?: getString(R.string.default_error_message)
                     } else {
@@ -70,9 +100,36 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
         }
     }
 
+    private fun handleSearch(movies: Resource<List<MovieTv>>) {
+        binding?.apply {
+            when (movies) {
+                is Resource.Loading -> {
+                    errorLayout.gone()
+                    loading.root.visible()
+                }
+                is Resource.Success -> {
+                    loading.root.gone()
+                    errorLayout.gone()
+                    adapter.submitList(movies.data)
+                }
+                is Resource.Error -> {
+                    loading.root.gone()
+                    if (movies.data.isNullOrEmpty()) {
+                        errorLayout.visible()
+                        error.message.text =
+                            movies.message ?: getString(R.string.default_error_message)
+                    } else {
+                        requireContext().showToast(getString(R.string.default_error_message))
+                        adapter.submitList(movies.data)
+                    }
+                }
+            }
+        }
+    }
+
     @ExperimentalCoroutinesApi
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        appComponent.inject(this)
+        (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 }

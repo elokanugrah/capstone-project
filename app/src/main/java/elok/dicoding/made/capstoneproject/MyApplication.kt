@@ -1,11 +1,10 @@
 package elok.dicoding.made.capstoneproject
 
 import android.app.Application
-import elok.dicoding.made.capstoneproject.core.di.CoreComponent
-import elok.dicoding.made.capstoneproject.core.di.DaggerCoreComponent
 import elok.dicoding.made.capstoneproject.di.AppComponent
 import elok.dicoding.made.capstoneproject.di.DaggerAppComponent
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import elok.dicoding.made.core.di.CoreComponent
+import elok.dicoding.made.core.di.DaggerCoreComponent
 
 open class MyApplication : Application() {
 

@@ -4,16 +4,21 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/blue_sky</item>
-        <item name="colorOnPrimary">@color/light</item>
+        <item name="colorOnPrimary">@color/dark</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/yellow</item>
         <item name="colorSecondaryVariant">@color/yellow_light</item>
-        <item name="colorOnSecondary">@color/dark</item>
+        <item name="colorOnSecondary">@color/light</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?colorOnPrimary</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?colorPrimary</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">?colorOnPrimary</item>
-        <item name="android:textColor">@color/text_on_light</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
+        <item name="android:textColor">@color/light</item>
+        <item name="android:editTextColor">@color/dark</item>
+        <item name="android:textColorPrimary">@color/light</item>
+        <item name="android:textColorSecondary">@color/dark</item>
+        <item name="actionMenuTextColor">@color/light</item>
     </style>
 </resources>

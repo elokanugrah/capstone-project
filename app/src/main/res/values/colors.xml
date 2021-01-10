@@ -5,8 +5,6 @@
     <color name="yellow">#FCBF1E</color>
     <color name="yellow_light">#F1E72E</color>
     <color name="dark">#120136</color>
+    <color name="dark_transparent">#AD120136</color>
     <color name="light">#FFFFFF</color>
-
-    <color name="color_tertiary">#EFEFEF</color>
-    <color name="text_on_light">#000A19</color>
 </resources>
