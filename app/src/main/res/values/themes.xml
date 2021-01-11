@@ -21,4 +21,8 @@
         <item name="android:textColorSecondary">@color/dark</item>
         <item name="actionMenuTextColor">@color/light</item>
     </style>
+
+    <style name="Theme.CapstoneProject.PartialView" parent="Theme.CapstoneProject">
+        <item name="android:background">?colorOnPrimary</item>
+    </style>
 </resources>

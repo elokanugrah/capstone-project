@@ -2,6 +2,7 @@ package elok.dicoding.made.capstoneproject.ui.components.tv
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -131,5 +132,21 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.rvTv?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(p0: View?) {}
+
+            override fun onViewDetachedFromWindow(p0: View?) {
+                binding?.rvTv?.adapter = null
+            }
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding?.rvTv?.clearOnScrollListeners()
     }
 }

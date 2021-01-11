@@ -13,6 +13,7 @@ import elok.dicoding.made.core.domain.model.MovieTv
 import elok.dicoding.made.core.ui.base.BaseActivity
 import elok.dicoding.made.core.utils.ext.observe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBinding.inflate(it) }) {
@@ -63,10 +64,13 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
         private const val EXTRA_MOVIE_TV = "key.EXTRA_MOVIE_TV"
 
         fun navigate(activity: Activity, movieTv: MovieTv) {
-            Intent(activity, DetailActivity::class.java).apply {
-                putExtra(EXTRA_MOVIE_TV, movieTv)
+            val activityReference: WeakReference<Activity> = WeakReference(activity)
+            val movieTvReference: WeakReference<MovieTv> = WeakReference(movieTv)
+
+            Intent(activityReference.get(), DetailActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE_TV, movieTvReference.get())
             }.also {
-                activity.startActivity(it)
+                activityReference.get()?.startActivity(it)
             }
         }
     }

@@ -17,16 +17,16 @@ import elok.dicoding.made.favorites.di.DaggerFavoriteComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.math.abs
 
-class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>({ FragmentFavoriteBinding.inflate(it) }) {
+class FavoriteFragment :
+    BaseFragment<FragmentFavoriteBinding>({ FragmentFavoriteBinding.inflate(it) }),
+    AppBarLayout.OnOffsetChangedListener {
 
     private val coreComponent: CoreComponent by lazy {
         DaggerCoreComponent.factory().create(requireActivity())
     }
 
     override fun FragmentFavoriteBinding.onViewCreated(savedInstanceState: Bundle?) {
-        binding?.appbar?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            binding?.appbar?.isSelected = abs(verticalOffset) - appBarLayout.totalScrollRange == 0
-        })
+        binding?.appbar?.addOnOffsetChangedListener(this@FavoriteFragment)
         initFavoritePagerAdapter()
         initTabLayout()
     }
@@ -71,5 +71,14 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>({ FragmentFavorit
     override fun onAttach(context: Context) {
         super.onAttach(context)
         DaggerFavoriteComponent.builder().coreComponent(coreComponent).build().inject(this)
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+        appBarLayout.isSelected = abs(verticalOffset) - appBarLayout.totalScrollRange == 0
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding?.appbar?.removeOnOffsetChangedListener(this)
     }
 }

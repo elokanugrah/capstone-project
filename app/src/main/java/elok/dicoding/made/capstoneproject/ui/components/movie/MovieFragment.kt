@@ -2,6 +2,7 @@ package elok.dicoding.made.capstoneproject.ui.components.movie
 
 import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -131,5 +132,21 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as MyApplication).appComponent.inject(this)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding?.rvMovie?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(p0: View?) {}
+
+            override fun onViewDetachedFromWindow(p0: View?) {
+                binding?.rvMovie?.adapter = null
+            }
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding?.rvMovie?.clearOnScrollListeners()
     }
 }
