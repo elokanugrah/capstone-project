@@ -11,6 +11,7 @@ import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.FragmentMovieBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
+import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
 import elok.dicoding.made.core.data.Resource
 import elok.dicoding.made.core.domain.model.MovieTv
 import elok.dicoding.made.core.ui.base.BaseFragment
@@ -51,7 +52,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
             })
         }
         adapter.listener = { _, _, item ->
-            throw RuntimeException("Test Crash")
+            DetailActivity.navigate(requireActivity(), item)
         }
         adapter.shareListener = { requireActivity().shareMovieTv(it) }
     }
