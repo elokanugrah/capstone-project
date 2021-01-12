@@ -4,8 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.paging.PagedList
-import com.google.android.material.snackbar.Snackbar
-import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
 import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
 import elok.dicoding.made.core.di.CoreComponent
@@ -34,22 +32,8 @@ class FavoriteTvFragment : BaseFragment<FragmentFavoriteTvBinding>({ FragmentFav
 
     override fun FragmentFavoriteTvBinding.onViewCreated(savedInstanceState: Bundle?) {
         binding?.rvFavoriteTv?.adapter = this@FavoriteTvFragment.adapter
-        adapter.lifecycleOwner = this@FavoriteTvFragment
-        adapter.viewModel = this@FavoriteTvFragment.viewModel
         adapter.listener = { _, _, item ->
             DetailActivity.navigate(requireActivity(), item)
-        }
-        adapter.favoriteListener = { item, isFavorite ->
-            viewModel.setToFavorite(item, isFavorite)
-            binding?.apply {
-                Snackbar.make(root, getString(R.string.deleted_favorite, getString(R.string.tv_show)), Snackbar.LENGTH_LONG).apply {
-                    setAction(getString(R.string.undo)) {
-                        viewModel.setToFavorite(item, false)
-                        return@setAction
-                    }
-                    show()
-                }
-            }
         }
         adapter.shareListener = { requireActivity().shareMovieTv(it) }
     }

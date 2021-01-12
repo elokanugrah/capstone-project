@@ -7,4 +7,6 @@
     <color name="dark">#120136</color>
     <color name="dark_transparent">#AD120136</color>
     <color name="light">#FFFFFF</color>
+    <color name="green">#75CF4E</color>
+    <color name="red">#DD3232</color>
 </resources>

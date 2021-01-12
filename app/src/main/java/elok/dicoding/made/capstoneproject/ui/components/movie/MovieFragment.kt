@@ -2,7 +2,6 @@ package elok.dicoding.made.capstoneproject.ui.components.movie
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -12,7 +11,6 @@ import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.FragmentMovieBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
 import elok.dicoding.made.core.data.Resource
 import elok.dicoding.made.core.domain.model.MovieTv
 import elok.dicoding.made.core.ui.base.BaseFragment
@@ -41,10 +39,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
             })
             search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
-                    lifecycleScope.launch {
-                        viewModel.queryChannel.send(p0.toString())
-                    }
-                    return true
+                    return false
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
@@ -55,14 +50,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
                 }
             })
         }
-
-        adapter.lifecycleOwner = this@MovieFragment
-        adapter.viewModel = this@MovieFragment.viewModel
         adapter.listener = { _, _, item ->
-            DetailActivity.navigate(requireActivity(), item)
-        }
-        adapter.favoriteListener = { item, isFavorite ->
-            viewModel.setToFavorite(item, isFavorite)
+            throw RuntimeException("Test Crash")
         }
         adapter.shareListener = { requireActivity().shareMovieTv(it) }
     }
@@ -136,17 +125,6 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding?.rvMovie?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(p0: View?) {}
-
-            override fun onViewDetachedFromWindow(p0: View?) {
-                binding?.rvMovie?.adapter = null
-            }
-        })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
         binding?.rvMovie?.clearOnScrollListeners()
     }
 }

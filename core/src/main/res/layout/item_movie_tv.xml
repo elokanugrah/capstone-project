@@ -6,9 +6,6 @@
         <variable
             name="item"
             type="elok.dicoding.made.core.domain.model.MovieTv" />
-        <variable
-            name="isFavorite"
-            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,30 +77,17 @@
             app:layout_constraintStart_toEndOf="@+id/tv_vote"
             app:layout_constraintTop_toTopOf="@+id/tv_vote" />
 
-        <CheckBox
-            android:id="@+id/cb_isFav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:button="@drawable/selector_favorite"
-            app:isFavorite="@{isFavorite}"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
         <ImageButton
             android:id="@+id/btn_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
             android:background="?actionBarItemBackground"
             android:scaleType="fitXY"
             android:src="@drawable/ic_share"
-            app:layout_constraintBottom_toBottomOf="@+id/cb_isFav"
-            app:layout_constraintEnd_toStartOf="@+id/cb_isFav"
-            app:layout_constraintTop_toTopOf="@+id/cb_isFav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
             tools:ignore="ContentDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

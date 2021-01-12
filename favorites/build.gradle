@@ -20,15 +20,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-        debug {
-            applicationIdSuffix ".debug"
-            debuggable true
-        }
-    }
     buildFeatures{
         dataBinding true
         viewBinding true
@@ -39,6 +30,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    lintOptions {
+        disable 'IidCompatibilityCheckFailure'
     }
 }
 

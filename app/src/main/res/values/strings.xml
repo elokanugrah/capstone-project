@@ -10,8 +10,8 @@
     <string name="default_error_message">Sorry we are unable to serve it to you at this time, please try again later.</string>
     <string name="no_favorites">No Favorites</string>
     <string name="favorite_subtitle">Use the love button to save favorites. Find them next time you are offline!</string>
-    <string name="deleted_favorite">Successfully deleted %1$s</string>
-    <string name="undo">Undo</string>
+    <string name="added_to_favorite">Successfully added to favorite</string>
+    <string name="deleted_remove_favorite">Successfully removed from favorite</string>
     <string name="release">Release</string>
     <string name="overview">Overview</string>
     <string name="title_favorites">Favorites</string>

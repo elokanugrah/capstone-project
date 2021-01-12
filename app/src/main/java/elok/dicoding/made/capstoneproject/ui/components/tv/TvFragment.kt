@@ -2,7 +2,6 @@ package elok.dicoding.made.capstoneproject.ui.components.tv
 
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -41,10 +40,7 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
             })
             search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
-                    lifecycleScope.launch {
-                        viewModel.queryChannel.send(p0.toString())
-                    }
-                    return true
+                    return false
                 }
 
                 override fun onQueryTextChange(p0: String?): Boolean {
@@ -55,14 +51,8 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                 }
             })
         }
-
-        adapter.lifecycleOwner = this@TvFragment
-        adapter.viewModel = this@TvFragment.viewModel
         adapter.listener = { _, _, item ->
             DetailActivity.navigate(requireActivity(), item)
-        }
-        adapter.favoriteListener = { item, isFavorite ->
-            viewModel.setToFavorite(item, isFavorite)
         }
         adapter.shareListener = { requireActivity().shareMovieTv(it) }
     }
@@ -136,17 +126,6 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding?.rvTv?.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-            override fun onViewAttachedToWindow(p0: View?) {}
-
-            override fun onViewDetachedFromWindow(p0: View?) {
-                binding?.rvTv?.adapter = null
-            }
-        })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
         binding?.rvTv?.clearOnScrollListeners()
     }
 }

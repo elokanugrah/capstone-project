@@ -27,8 +27,13 @@ abstract class BaseAdapter<T : Any, VB : ViewDataBinding>(
         )
     )
 
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        listener = null
+    }
+
     companion object {
         class BaseViewHolder<VB : ViewDataBinding>(val binding: VB) :
-                RecyclerView.ViewHolder(binding.root)
+            RecyclerView.ViewHolder(binding.root)
     }
 }

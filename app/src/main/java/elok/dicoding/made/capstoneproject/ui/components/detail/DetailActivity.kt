@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import elok.dicoding.made.capstoneproject.MyApplication
+import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.ActivityDetailBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.core.R
+import elok.dicoding.made.core.R.drawable
 import elok.dicoding.made.core.domain.model.MovieTv
 import elok.dicoding.made.core.ui.base.BaseActivity
 import elok.dicoding.made.core.utils.ext.observe
@@ -43,16 +45,33 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
         observe(viewModel.isFavorite, ::setFavoriteState)
     }
 
-    private fun setFavoriteState(isFavorite: Boolean) {
-        binding.fabFav.setOnClickListener {
-            viewModel.setToFavorite(isFavorite)
-        }
-        binding.fabFav.setImageDrawable(
-                ContextCompat.getDrawable(
-                        this@DetailActivity,
-                        if (isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_border
+    private fun setFavoriteState(isFavoriteBefore: Boolean) {
+        binding.apply {
+            fabFav.setOnClickListener {
+                viewModel.setToFavorite(isFavoriteBefore)
+
+                Snackbar.make(
+                    coordinatorLayout,
+                    getString(if (isFavoriteBefore) R.string.deleted_remove_favorite else R.string.added_to_favorite),
+                    Snackbar.LENGTH_LONG
                 )
-        )
+                    .setBackgroundTint(
+                        ContextCompat.getColor(
+                            this@DetailActivity,
+                            if (isFavoriteBefore) R.color.red else R.color.green
+                        )
+                    )
+                    .show()
+            }
+
+            fabFav.setImageDrawable(
+                ContextCompat.getDrawable(
+                    this@DetailActivity,
+                    if (isFavoriteBefore) drawable.ic_favorite_filled else drawable.ic_favorite_border
+                )
+            )
+        }
+
     }
 
     override fun onSupportNavigateUp(): Boolean {

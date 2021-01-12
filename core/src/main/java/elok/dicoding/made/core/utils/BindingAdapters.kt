@@ -1,6 +1,5 @@
 package elok.dicoding.made.core.utils
 
-import android.widget.CheckBox
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -16,9 +15,4 @@ fun setImageUrl(imageView: ImageView, imageUrl: String?) {
             .error(R.drawable.ic_error)
             .into(imageView)
   }
-}
-
-@BindingAdapter("app:isFavorite")
-fun setIsFavorite(checkBox: CheckBox, isFavorite: Boolean) {
-  checkBox.isChecked = isFavorite
 }
