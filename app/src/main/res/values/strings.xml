@@ -5,7 +5,7 @@
     <string name="movie">Movie</string>
     <string name="tv_show">Tv Show</string>
     <string name="favorite">Favorite</string>
-
+    <!-- Others -->
     <string name="backdrop">Backdrop</string>
     <string name="default_error_message">Sorry we are unable to serve it to you at this time, please try again later.</string>
     <string name="no_favorites">No Favorites</string>
