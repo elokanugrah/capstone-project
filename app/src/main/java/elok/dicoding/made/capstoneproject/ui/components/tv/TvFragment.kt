@@ -26,11 +26,11 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
     lateinit var factory: ViewModelFactory
 
     private val viewModel: TvViewModel by viewModels { factory }
-    private val adapter by lazy { TvAdapter() }
+    private val tvAdapter by lazy { TvAdapter() }
 
     override fun FragmentTvBinding.onViewCreated(savedInstanceState: Bundle?) {
         binding?.apply {
-            rvTv.adapter = this@TvFragment.adapter
+            rvTv.adapter = tvAdapter
             rvTv.hasFixedSize()
             rvTv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -51,10 +51,10 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                 }
             })
         }
-        adapter.listener = { _, _, item ->
+        tvAdapter.listener = { _, _, item ->
             DetailActivity.navigate(requireActivity(), item)
         }
-        adapter.shareListener = { requireActivity().shareMovieTv(it) }
+        tvAdapter.shareListener = { requireActivity().shareMovieTv(it) }
     }
 
     override fun observeViewModel() {
@@ -74,7 +74,7 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                 is Resource.Success -> {
                     loading.root.gone()
                     errorLayout.gone()
-                    adapter.submitList(tvShows.data)
+                    tvAdapter.submitList(tvShows.data)
                 }
                 is Resource.Error -> {
                     loading.root.gone()
@@ -84,7 +84,7 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                             tvShows.message ?: getString(R.string.default_error_message)
                     } else {
                         requireContext().showToast(getString(R.string.default_error_message))
-                        adapter.submitList(tvShows.data)
+                        tvAdapter.submitList(tvShows.data)
                     }
                 }
             }
@@ -101,7 +101,7 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                 is Resource.Success -> {
                     loading.root.gone()
                     errorLayout.gone()
-                    adapter.submitList(movies.data)
+                    tvAdapter.submitList(movies.data)
                 }
                 is Resource.Error -> {
                     loading.root.gone()
@@ -111,7 +111,7 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                             movies.message ?: getString(R.string.default_error_message)
                     } else {
                         requireContext().showToast(getString(R.string.default_error_message))
-                        adapter.submitList(movies.data)
+                        tvAdapter.submitList(movies.data)
                     }
                 }
             }
@@ -125,7 +125,7 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
     }
 
     override fun onDestroyView() {
+        binding?.rvTv?.adapter = null
         super.onDestroyView()
-        binding?.rvTv?.clearOnScrollListeners()
     }
 }

@@ -26,11 +26,11 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
     lateinit var factory: ViewModelFactory
 
     private val viewModel: MovieViewModel by viewModels { factory }
-    private val adapter by lazy { MovieAdapter() }
+    private val movieAdapter by lazy { MovieAdapter() }
 
     override fun FragmentMovieBinding.onViewCreated(savedInstanceState: Bundle?) {
         binding?.apply {
-            rvMovie.adapter = this@MovieFragment.adapter
+            rvMovie.adapter = movieAdapter
             rvMovie.hasFixedSize()
             rvMovie.addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -51,10 +51,10 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
                 }
             })
         }
-        adapter.listener = { _, _, item ->
+        movieAdapter.listener = { _, _, item ->
             DetailActivity.navigate(requireActivity(), item)
         }
-        adapter.shareListener = { requireActivity().shareMovieTv(it) }
+        movieAdapter.shareListener = { requireActivity().shareMovieTv(it) }
     }
 
     override fun observeViewModel() {
@@ -74,7 +74,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
                 is Resource.Success -> {
                     loading.root.gone()
                     errorLayout.gone()
-                    adapter.submitList(movies.data)
+                    movieAdapter.submitList(movies.data)
                 }
                 is Resource.Error -> {
                     loading.root.gone()
@@ -84,7 +84,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
                             movies.message ?: getString(R.string.default_error_message)
                     } else {
                         requireContext().showToast(getString(R.string.default_error_message))
-                        adapter.submitList(movies.data)
+                        movieAdapter.submitList(movies.data)
                     }
                 }
             }
@@ -101,7 +101,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
                 is Resource.Success -> {
                     loading.root.gone()
                     errorLayout.gone()
-                    adapter.submitList(movies.data)
+                    movieAdapter.submitList(movies.data)
                 }
                 is Resource.Error -> {
                     loading.root.gone()
@@ -111,7 +111,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
                             movies.message ?: getString(R.string.default_error_message)
                     } else {
                         requireContext().showToast(getString(R.string.default_error_message))
-                        adapter.submitList(movies.data)
+                        movieAdapter.submitList(movies.data)
                     }
                 }
             }
@@ -125,7 +125,7 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
     }
 
     override fun onDestroyView() {
+        binding?.rvMovie?.adapter = null
         super.onDestroyView()
-        binding?.rvMovie?.clearOnScrollListeners()
     }
 }

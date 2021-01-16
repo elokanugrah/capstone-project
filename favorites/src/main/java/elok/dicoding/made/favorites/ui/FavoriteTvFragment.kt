@@ -58,4 +58,9 @@ class FavoriteTvFragment : BaseFragment<FragmentFavoriteTvBinding>({ FragmentFav
         super.onAttach(context)
         DaggerFavoriteComponent.builder().coreComponent(coreComponent).build().inject(this)
     }
+
+    override fun onDestroyView() {
+        binding?.rvFavoriteTv?.adapter = null
+        super.onDestroyView()
+    }
 }

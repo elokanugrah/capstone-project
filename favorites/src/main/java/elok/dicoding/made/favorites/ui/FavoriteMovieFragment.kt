@@ -58,4 +58,9 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>({ Fragm
         super.onAttach(context)
         DaggerFavoriteComponent.builder().coreComponent(coreComponent).build().inject(this)
     }
+
+    override fun onDestroyView() {
+        binding?.rvFavoriteMovie?.adapter = null
+        super.onDestroyView()
+    }
 }

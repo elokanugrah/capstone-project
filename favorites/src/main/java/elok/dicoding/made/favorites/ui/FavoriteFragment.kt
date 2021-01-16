@@ -76,9 +76,4 @@ class FavoriteFragment :
     override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
         appBarLayout.isSelected = abs(verticalOffset) - appBarLayout.totalScrollRange == 0
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding?.appbar?.removeOnOffsetChangedListener(this)
-    }
 }
