@@ -6,12 +6,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.FragmentTvBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
 import elok.dicoding.made.core.data.Resource
 import elok.dicoding.made.core.domain.model.MovieTv
 import elok.dicoding.made.core.ui.base.BaseFragment
@@ -52,7 +52,9 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
             })
         }
         tvAdapter.listener = { _, _, item ->
-            DetailActivity.navigate(requireActivity(), item)
+            findNavController().navigate(
+                TvFragmentDirections.actionTvFragmentToDetailActivity(item)
+            )
         }
         tvAdapter.shareListener = { requireActivity().shareMovieTv(it) }
     }

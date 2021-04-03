@@ -3,9 +3,9 @@ package elok.dicoding.made.favorites.ui
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagedList
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
-import elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity
 import elok.dicoding.made.core.di.CoreComponent
 import elok.dicoding.made.core.di.DaggerCoreComponent
 import elok.dicoding.made.core.domain.model.MovieTv
@@ -33,7 +33,9 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding>({ Fragm
     override fun FragmentFavoriteMovieBinding.onViewCreated(savedInstanceState: Bundle?) {
         binding?.rvFavoriteMovie?.adapter = this@FavoriteMovieFragment.adapter
         adapter.listener = { _, _, item ->
-            DetailActivity.navigate(requireActivity(), item)
+            findNavController().navigate(
+                FavoriteFragmentDirections.actionFavoriteFragmentToDetailActivity(item)
+            )
         }
         adapter.shareListener = { requireActivity().shareMovieTv(it) }
     }

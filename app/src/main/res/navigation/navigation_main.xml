@@ -9,15 +9,36 @@
         android:id="@+id/movieFragment"
         android:name="elok.dicoding.made.capstoneproject.ui.components.movie.MovieFragment"
         android:label="MovieFragment"
-        tools:layout="@layout/fragment_movie" />
+        tools:layout="@layout/fragment_movie">
+        <action
+            android:id="@+id/action_movieFragment_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
     <fragment
         android:id="@+id/tvFragment"
         android:name="elok.dicoding.made.capstoneproject.ui.components.tv.TvFragment"
         android:label="TvFragment"
-        tools:layout="@layout/fragment_tv" />
+        tools:layout="@layout/fragment_tv">
+        <action
+            android:id="@+id/action_tvFragment_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="elok.dicoding.made.favorites.ui.FavoriteFragment"
         android:label="FavoriteFragment"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_detailActivity"
+            app:destination="@id/detailActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="elok.dicoding.made.capstoneproject.ui.components.detail.DetailActivity"
+        android:label="DetailActivity"
+        tools:layout="@layout/activity_detail">
+        <argument
+            android:name="item"
+            app:argType="elok.dicoding.made.core.domain.model.MovieTv" />
+    </activity>
 </navigation>
