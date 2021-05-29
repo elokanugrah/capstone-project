@@ -14,7 +14,7 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">?colorOnPrimary</item>
-        <item name="android:homeAsUpIndicator">@drawable/ic_back</item>
+        <!--<item name="android:homeAsUpIndicator">@drawable/ic_back</item>-->
         <item name="android:textColor">@color/light</item>
         <item name="android:editTextColor">@color/dark</item>
         <item name="android:textColorPrimary">@color/light</item>
@@ -24,5 +24,24 @@
 
     <style name="Theme.CapstoneProject.PartialView" parent="Theme.CapstoneProject">
         <item name="android:background">?colorOnPrimary</item>
+    </style>
+
+    <style name="Theme.CapstoneProject.GenreChip.Text">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="Theme.CapstoneProject.GenreChip" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="chipStrokeColor">?colorPrimary</item>
+        <item name="elevationOverlayEnabled">false</item>
+        <item name="android:textAppearance">@style/Theme.CapstoneProject.GenreChip.Text</item>
+        <item name="android:textColor">?colorOnSecondary</item>
+        <item name="chipCornerRadius">8dp</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipStartPadding">4dp</item>
+        <item name="chipEndPadding">4dp</item>
+        <item name="chipMinTouchTargetSize">0dp</item>
     </style>
 </resources>

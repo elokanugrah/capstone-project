@@ -4,17 +4,20 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import elok.dicoding.made.capstoneproject.R
-import elok.dicoding.made.core.databinding.ItemMovieTvBinding
-import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.databinding.ItemMovieBinding
+import elok.dicoding.made.core.domain.model.Movie
 import elok.dicoding.made.core.ui.base.BaseAdapter
 
-class  MovieAdapter : BaseAdapter<MovieTv, ItemMovieTvBinding>(DIFF_CALLBACK) {
+class MovieAdapter : BaseAdapter<Movie, ItemMovieBinding>(DIFF_CALLBACK) {
 
-    var shareListener: ((item: MovieTv) -> Unit)? = null
+    var shareListener: ((item: Movie) -> Unit)? = null
 
-    override fun getLayout(): Int = R.layout.item_movie_tv
+    override fun getLayout(): Int = R.layout.item_movie
 
-    override fun onBindViewHolder(holder: BaseAdapter.Companion.BaseViewHolder<ItemMovieTvBinding>, position: Int) {
+    override fun onBindViewHolder(
+        holder: BaseAdapter.Companion.BaseViewHolder<ItemMovieBinding>,
+        position: Int
+    ) {
         val item = getItem(position) ?: return
         holder.apply {
             binding.root.setOnClickListener { listener?.invoke(it, position, item) }
@@ -32,12 +35,12 @@ class  MovieAdapter : BaseAdapter<MovieTv, ItemMovieTvBinding>(DIFF_CALLBACK) {
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MovieTv>() {
-            override fun areContentsTheSame(oldItem: MovieTv, newItem: MovieTv): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areItemsTheSame(oldItem: MovieTv, newItem: MovieTv): Boolean {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
                 return oldItem == newItem
             }
         }

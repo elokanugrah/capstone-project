@@ -11,8 +11,8 @@
         android:label="MovieFragment"
         tools:layout="@layout/fragment_movie">
         <action
-            android:id="@+id/action_movieFragment_to_detailActivity"
-            app:destination="@id/detailActivity" />
+            android:id="@+id/action_movieFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/tvFragment"
@@ -39,6 +39,28 @@
         tools:layout="@layout/activity_detail">
         <argument
             android:name="item"
-            app:argType="elok.dicoding.made.core.domain.model.MovieTv" />
+            android:defaultValue="@null"
+            app:argType="elok.dicoding.made.core.domain.model.MovieTv"
+            app:nullable="true" />
+        <argument
+            android:name="movie"
+            android:defaultValue="@null"
+            app:argType="elok.dicoding.made.core.domain.model.Movie"
+            app:nullable="true" />
+        <argument
+            android:name="tv"
+            android:defaultValue="@null"
+            app:argType="elok.dicoding.made.core.domain.model.Tv"
+            app:nullable="true" />
     </activity>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="elok.dicoding.made.capstoneproject.ui.components.moviedetail.MovieDetailFragment"
+        android:label="MovieDetailFragment"
+        tools:layout="@layout/fragment_movie_detail">
+        <argument
+            android:name="movie"
+            app:argType="elok.dicoding.made.core.domain.model.Movie" />
+    </fragment>
+
 </navigation>

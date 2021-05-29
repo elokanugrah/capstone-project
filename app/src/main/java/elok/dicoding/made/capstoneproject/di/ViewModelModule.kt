@@ -8,6 +8,7 @@ import dagger.multibindings.IntoMap
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
 import elok.dicoding.made.capstoneproject.ui.components.detail.DetailViewModel
 import elok.dicoding.made.capstoneproject.ui.components.movie.MovieViewModel
+import elok.dicoding.made.capstoneproject.ui.components.moviedetail.MovieDetailViewModel
 import elok.dicoding.made.capstoneproject.ui.components.tv.TvViewModel
 
 @Suppress("unused")
@@ -31,4 +32,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
     abstract fun bindDetailViewModel(viewModel: DetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailViewModel::class)
+    abstract fun bindMovieDetailViewModel(viewModel: MovieDetailViewModel): ViewModel
 }

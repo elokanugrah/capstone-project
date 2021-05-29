@@ -4,12 +4,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.navigation.navArgs
+import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import elok.dicoding.made.capstoneproject.MyApplication
 import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.ActivityDetailBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
 import elok.dicoding.made.core.R.drawable
+import elok.dicoding.made.core.data.source.local.entity.relation.TvWithGenres
 import elok.dicoding.made.core.ui.base.BaseActivity
 import elok.dicoding.made.core.utils.ext.observe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -33,20 +35,41 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>({ ActivityDetailBindi
         }
 
         val movieTv = args.item
-        movieTv.let {
+        movieTv?.let {
+            viewModel.setSelectedItem(it)
+        }
+        val tv = args.tv
+        tv?.let {
             viewModel.setSelectedItem(it)
         }
     }
 
     override fun observeViewModel() {
         observe(viewModel.movieTvItem) { binding.item = it }
-        observe(viewModel.isFavorite, ::setFavoriteState)
+        observe(viewModel.tvItem) { binding.tv = it }
+//        observe(viewModel.isFavorite, ::setFavoriteState)
+        observe(viewModel.tvGenres, ::handleTvGenres)
+    }
+
+    private fun handleTvGenres(tvWithGenres: TvWithGenres) {
+        binding.apply {
+            tvWithGenres.genresTv.forEachIndexed { _, genreTvEntity ->
+                val chip = layoutInflater.inflate(
+                    R.layout.item_genre_chip_choice,
+                    genreChipGroup,
+                    false
+                ) as Chip
+                chip.text = genreTvEntity.name
+                chip.id = genreTvEntity.genreTvId.toInt()
+                genreChipGroup.addView(chip)
+            }
+        }
     }
 
     private fun setFavoriteState(isFavoriteBefore: Boolean) {
         binding.apply {
             fabFav.setOnClickListener {
-                viewModel.setToFavorite(isFavoriteBefore)
+//                viewModel.setToFavorite(isFavoriteBefore)
 
                 Snackbar.make(
                     coordinatorLayout,

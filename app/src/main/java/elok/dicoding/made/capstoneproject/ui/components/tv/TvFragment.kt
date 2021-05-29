@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +12,8 @@ import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.FragmentTvBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
 import elok.dicoding.made.core.data.Resource
-import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.domain.model.GenreTv
+import elok.dicoding.made.core.domain.model.Tv
 import elok.dicoding.made.core.ui.base.BaseFragment
 import elok.dicoding.made.core.utils.ext.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,20 +53,52 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
         }
         tvAdapter.listener = { _, _, item ->
             findNavController().navigate(
-                TvFragmentDirections.actionTvFragmentToDetailActivity(item)
+                TvFragmentDirections.actionTvFragmentToDetailActivity(tv = item)
             )
         }
-        tvAdapter.shareListener = { requireActivity().shareMovieTv(it) }
+        tvAdapter.shareListener = { requireActivity().shareTv(it) }
     }
 
     override fun observeViewModel() {
-        observe(viewModel.tvShows, ::handleTvShows)
-        observe(viewModel.search) { searchResult ->
+        observe(viewModel.genreTvList, ::handleGenreTvList)
+        observe(viewModel.tvList, ::handleTvList)
+        /*observe(viewModel.search) { searchResult ->
             observe(searchResult?.asLiveData(), ::handleSearch)
+        }*/
+    }
+
+    private fun handleGenreTvList(genreList: Resource<List<GenreTv>>) {
+
+    }
+
+    private fun handleTvList(tvList: Resource<List<Tv>>) {
+        binding?.apply {
+            when (tvList) {
+                is Resource.Loading -> {
+                    errorLayout.gone()
+                    loading.root.visible()
+                }
+                is Resource.Success -> {
+                    loading.root.gone()
+                    errorLayout.gone()
+                    tvAdapter.submitList(tvList.data)
+                }
+                is Resource.Error -> {
+                    loading.root.gone()
+                    if (tvList.data.isNullOrEmpty()) {
+                        errorLayout.visible()
+                        error.message.text =
+                            tvList.message ?: getString(R.string.default_error_message)
+                    } else {
+                        requireContext().showToast(getString(R.string.default_error_message))
+                        tvAdapter.submitList(tvList.data)
+                    }
+                }
+            }
         }
     }
 
-    private fun handleTvShows(tvShows: Resource<List<MovieTv>>) {
+    /*private fun handleTvShows(tvShows: Resource<List<MovieTv>>) {
         binding?.apply {
             when (tvShows) {
                 is Resource.Loading -> {
@@ -91,9 +123,9 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                 }
             }
         }
-    }
+    }*/
 
-    private fun handleSearch(movies: Resource<List<MovieTv>>) {
+    /*private fun handleSearch(movies: Resource<List<MovieTv>>) {
         binding?.apply {
             when (movies) {
                 is Resource.Loading -> {
@@ -118,7 +150,7 @@ class TvFragment : BaseFragment<FragmentTvBinding>({ FragmentTvBinding.inflate(i
                 }
             }
         }
-    }
+    }*/
 
     @ExperimentalCoroutinesApi
     override fun onAttach(context: Context) {

@@ -13,7 +13,7 @@ import elok.dicoding.made.capstoneproject.R
 import elok.dicoding.made.capstoneproject.databinding.FragmentMovieBinding
 import elok.dicoding.made.capstoneproject.ui.ViewModelFactory
 import elok.dicoding.made.core.data.Resource
-import elok.dicoding.made.core.domain.model.MovieTv
+import elok.dicoding.made.core.domain.model.Movie
 import elok.dicoding.made.core.ui.base.BaseFragment
 import elok.dicoding.made.core.utils.ext.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,22 +53,22 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
         }
         movieAdapter.listener = { _, _, item ->
             findNavController().navigate(
-                MovieFragmentDirections.actionMovieFragmentToDetailActivity(item)
+                MovieFragmentDirections.actionMovieFragmentToMovieDetailFragment(item)
             )
         }
-        movieAdapter.shareListener = { requireActivity().shareMovieTv(it) }
+        movieAdapter.shareListener = { requireActivity().shareMovie(it) }
     }
 
     override fun observeViewModel() {
-        observe(viewModel.movies, ::handleMovies)
+        observe(viewModel.movieList, ::handleMovieList)
         observe(viewModel.search) { searchResult ->
             observe(searchResult?.asLiveData(), ::handleSearch)
         }
     }
 
-    private fun handleMovies(movies: Resource<List<MovieTv>>) {
+    private fun handleMovieList(movieList: Resource<List<Movie>>) {
         binding?.apply {
-            when (movies) {
+            when (movieList) {
                 is Resource.Loading -> {
                     errorLayout.gone()
                     loading.root.visible()
@@ -76,24 +76,24 @@ class MovieFragment : BaseFragment<FragmentMovieBinding>({ FragmentMovieBinding.
                 is Resource.Success -> {
                     loading.root.gone()
                     errorLayout.gone()
-                    movieAdapter.submitList(movies.data)
+                    movieAdapter.submitList(movieList.data)
                 }
                 is Resource.Error -> {
                     loading.root.gone()
-                    if (movies.data.isNullOrEmpty()) {
+                    if (movieList.data.isNullOrEmpty()) {
                         errorLayout.visible()
                         error.message.text =
-                            movies.message ?: getString(R.string.default_error_message)
+                            movieList.message ?: getString(R.string.default_error_message)
                     } else {
                         requireContext().showToast(getString(R.string.default_error_message))
-                        movieAdapter.submitList(movies.data)
+                        movieAdapter.submitList(movieList.data)
                     }
                 }
             }
         }
     }
 
-    private fun handleSearch(movies: Resource<List<MovieTv>>) {
+    private fun handleSearch(movies: Resource<List<Movie>>) {
         binding?.apply {
             when (movies) {
                 is Resource.Loading -> {
